@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TransportTask.Views;
+namespace TransportationTheory.Views;
 
 public partial class MainWindow : Window
 {

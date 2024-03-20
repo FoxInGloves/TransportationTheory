@@ -1,8 +1,8 @@
 using System;
 
-namespace TransportTask.Infrastructure;
+namespace TransportationTheory.Infrastructure;
 
-public static class MatrixExtensions0
+public static class MatrixExtensions
 {
     public static T[,] Resize2d<T>(this T[,] original, int x, int y)
     {

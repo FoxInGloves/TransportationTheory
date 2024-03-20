@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransportTask", "TransportTask\TransportTask.csproj", "{0EC10493-13F9-42BA-B69B-716967985565}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransportationTheory", "TransportationTheory\TransportationTheory.csproj", "{0EC10493-13F9-42BA-B69B-716967985565}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

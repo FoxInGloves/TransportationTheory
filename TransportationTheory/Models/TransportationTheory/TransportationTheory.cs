@@ -1,6 +1,6 @@
-namespace TransportTask.Models.TransportTask;
+namespace TransportationTheory.Models.TransportationTheory;
 
-public readonly struct TransportTask
+public readonly struct TransportationTheory
 {
     public readonly float[,] TariffMatrix;
 
@@ -8,7 +8,7 @@ public readonly struct TransportTask
 
     public readonly float[] Supplies;
 
-    public TransportTask(float[,] tariffMatrix, float[] consumers, float[] supplies)
+    public TransportationTheory(float[,] tariffMatrix, float[] consumers, float[] supplies)
     {
         TariffMatrix = tariffMatrix;
         Consumers = consumers;

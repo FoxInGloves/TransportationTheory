@@ -1,17 +1,18 @@
 using System.Threading;
-using TransportTask.Models.TransportTaskSolver.Abstractions;
+using TransportationTheory.Models.TransportationTheorySolver.Abstractions;
+using TransportationTheory.Models.TransportationTheorySolver.Implementations.Decorators;
 
-namespace TransportTask.Models.TransportTaskSolver.Implementations.Decorators;
+namespace TransportationTheory.Models.TransportTaskSolver.Implementations.Decorators;
 
-public sealed class TransportTaskSolverWithOptimizations : BaseTransportTaskSolverDecorator
+public sealed class TransportationTheorySolverWithOptimizations : BaseTransportationTheorySolverDecorator
 {
-    public TransportTaskSolverWithOptimizations(ITransportTaskSolver transportTaskSolver) : base(transportTaskSolver)
+    public TransportationTheorySolverWithOptimizations(ITransportationTheorySolver transportationTheorySolver) : base(transportationTheorySolver)
     {
     }
 
-    public override float[,] Calculate(in TransportTask.TransportTask matrix)
+    public override float[,] Calculate(in TransportationTheory.TransportationTheory matrix)
     {
-        var previousResult = TransportTaskSolver.Calculate(matrix);
+        var previousResult = TransportationTheorySolver.Calculate(matrix);
 
         return Optimize(matrix.TariffMatrix, previousResult);
     }
@@ -19,7 +20,7 @@ public sealed class TransportTaskSolverWithOptimizations : BaseTransportTaskSolv
     //TODO the code was taken from github and needs to be rewritten, because it’s trash
     public float[,] Optimize(float[,] costs, float[,] basicPlan)
     {
-        float[,] C; //адресмассива(двумерного) стоимости перевозки
+        float[,] C; //адрес массива(двумерного) стоимости перевозки
         float[] u; //адрес массива потенциалов поставщиков
         float[] v; //адрес массива потенциалов потребителей
         float[,] D; //адрес массива(двумерного) оценок свободных ячеек таблицы

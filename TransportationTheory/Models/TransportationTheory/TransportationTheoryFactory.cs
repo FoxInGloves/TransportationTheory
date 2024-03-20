@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
 
-namespace TransportTask.Models.TransportTask;
+namespace TransportationTheory.Models.TransportationTheory;
 
-public sealed class TransportTaskFactory
+public sealed class TransportationTheoryFactory
 {
-    public TransportTask CreateInputMatrix(float[,] matrix)
+    public Models.TransportationTheory.TransportationTheory CreateInputMatrix(float[,] matrix)
     {
         float[,] tariffMatrix = CreateBaseTariffMatrix(matrix);
 
@@ -29,7 +29,7 @@ public sealed class TransportTaskFactory
             tariffMatrix = CreateTariffMatrixSupplies(matrix);
         }
 
-        return new TransportTask(tariffMatrix, consumersMatrix, suppliesMatrix);
+        return new Models.TransportationTheory.TransportationTheory(tariffMatrix, consumersMatrix, suppliesMatrix);
     }
 
     private float[,] CreateTariffMatrixConsumers(float[,] matrix)

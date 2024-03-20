@@ -2,19 +2,20 @@ using System;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using TransportTask.Infrastructure;
-using TransportTask.Models.TransportTask;
-using TransportTask.Models.TransportTaskSolver.Abstractions;
-using TransportTask.Models.TransportTaskSolver.Implementations;
-using TransportTask.Services;
+using TransportationTheory.Models.TransportTaskSolver.Implementations;
+using TransportationTheory.Services;
+using TransportationTheory.Infrastructure;
+using TransportationTheory.Models.TransportationTheory;
+using TransportationTheory.Models.TransportationTheorySolver.Abstractions;
+using TransportationTheory.Models.TransportationTheorySolver.Implementations;
 
-namespace TransportTask.ViewModels;
+namespace TransportationTheory.ViewModels;
 
 public sealed partial class MainViewModel : ObservableObject
 {
-    private readonly ITransportTaskSolver _transportTaskSolver;
+    private readonly ITransportationTheorySolver _transportTaskSolver;
 
-    private readonly TransportTaskFactory _transportTaskFactory;
+    private readonly TransportationTheoryFactory _transportationTheoryFactory;
 
     private readonly ChangeMatrix _changeMatrix;
 
@@ -33,11 +34,11 @@ public sealed partial class MainViewModel : ObservableObject
     [ObservableProperty] 
     private string _minCostOptimizeMatrix;
 
-    public MainViewModel(TransportTaskFactory matrixFactory, ITransportTaskSolver transportTaskSolver)
+    public MainViewModel(TransportationTheoryFactory matrixFactory, ITransportationTheorySolver transportationTheorySolver)
     {
-        _transportTaskFactory = matrixFactory ?? throw new ArgumentNullException(nameof(matrixFactory));
+        _transportationTheoryFactory = matrixFactory ?? throw new ArgumentNullException(nameof(matrixFactory));
         
-        _transportTaskSolver = transportTaskSolver ?? throw new ArgumentNullException(nameof(transportTaskSolver));
+        _transportTaskSolver = transportationTheorySolver ?? throw new ArgumentNullException(nameof(transportationTheorySolver));
 
         _changeMatrix = new ChangeMatrix();
         
@@ -77,9 +78,9 @@ public sealed partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void GetBasePlan()
     {
-        var inputMatrix = _transportTaskFactory.CreateInputMatrix(Matrix);
+        var inputMatrix = _transportationTheoryFactory.CreateInputMatrix(Matrix);
 
-        var forBasicMatrix = _changeMatrix.ForBasicMatrix(new BasicTransportTaskSolver().Calculate(inputMatrix), inputMatrix.TariffMatrix);
+        var forBasicMatrix = _changeMatrix.ForBasicMatrix(new BasicTransportationTheorySolver().Calculate(inputMatrix), inputMatrix.TariffMatrix);
 
         BasicMatrix = _changeMatrix.RemoveUnnecessaryCells(forBasicMatrix.Item1);
 

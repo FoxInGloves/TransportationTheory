@@ -1,13 +1,13 @@
 using System;
-using TransportTask.Models.TransportTaskSolver.Abstractions;
+using TransportationTheory.Models.TransportationTheorySolver.Abstractions;
 
-namespace TransportTask.Models.TransportTaskSolver.Implementations;
+namespace TransportationTheory.Models.TransportationTheorySolver.Implementations;
 
-public sealed class BasicTransportTaskSolver : ITransportTaskSolver
+public sealed class BasicTransportationTheorySolver : ITransportationTheorySolver
 {
-    public float[,] Calculate(in TransportTask.TransportTask matrix)
+    public float[,] Calculate(in TransportationTheory.TransportationTheory matrix)
     {
-        var consumers = new float[matrix.Consumers.Length]; //потребители
+        var consumers = new float[matrix.Consumers.Length];
         Array.Copy(matrix.Consumers, consumers, matrix.Consumers.Length);
 
         var supplies = new float[matrix.Supplies.Length];
@@ -15,19 +15,19 @@ public sealed class BasicTransportTaskSolver : ITransportTaskSolver
 
         var result = new float[supplies.Length, consumers.Length];
 
-        var solveMatrix = new float[supplies.Length, consumers.Length]; // Матрица решения
+        var solveMatrix = new float[supplies.Length, consumers.Length];
 
-        int row = 0, column = 0; // Начальные координаты
+        int row = 0, column = 0;
 
         while (row < supplies.Length - 1 && column < consumers.Length - 1)
         {
-            var product = MathF.Min(supplies[row], consumers[column]); // Количество товара, которое можно перевезти
+            var product = MathF.Min(supplies[row], consumers[column]);
 
             solveMatrix[row, column] = product;
 
-            supplies[row] -= product; // Изменяем оставшиеся поставки
+            supplies[row] -= product;
 
-            consumers[column] -= product; // Изменяем оставшиеся потребности
+            consumers[column] -= product;
 
             if (supplies[row] == 0) row++;
             if (consumers[column] == 0) column++;
