@@ -2,7 +2,7 @@ namespace TransportationTheory.Services;
 
 public class ChangeMatrix
 {
-    public (string[,], float) ForOptimizeMatrix(float[,] matrix, float[,] tariff)
+    public static (string[,], float) ForOptimizeMatrix(float[,] matrix, float[,] tariff)
     {
         var newMatrix = new string[matrix.GetLength(0) - 1, matrix.GetLength(1) - 1];
 
@@ -22,7 +22,7 @@ public class ChangeMatrix
         return (newMatrix, minCost);
     }
     
-    public (string[,], float) ForBasicMatrix(float[,] matrix, float[,] tariff)
+    public static (string[,], float) ForBasicMatrix(float[,] matrix, float[,] tariff)
     {
         var newMatrix = new string[tariff.GetLength(0), tariff.GetLength(1)];
 

@@ -3,7 +3,7 @@
     ResizeMode="CanResizeWithGrip"
     Title="TransportationTheorySolver"
     Width="900"
-    WindowState="Maximized"
+    WindowState="Normal"
     mc:Ignorable="d"
     x:Class="TransportationTheory.Views.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -34,17 +34,13 @@
     </Window.Resources>
 
     <Grid>
-        <ScrollViewer>
+        <ScrollViewer 
+            VerticalScrollBarVisibility="Auto">
             <TabControl>
                 <TabItem
-                    Header="Решение"
+                    Header="Solver"
                     Height="20"
                     Width="70">
-                    <TabItem.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="5" />
-                        </Style>
-                    </TabItem.Resources>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="80" />
@@ -62,18 +58,21 @@
                             Grid.Row="0"
                             HorizontalAlignment="Center"
                             Margin="5"
-                            Text="Решение транспортной задачи"
+                            Text="Solution of the transportation theory"
                             VerticalAlignment="Top" />
 
                         <TextBlock
                             FontSize="14"
+                            Grid.Row="0" 
                             Grid.Column="1"
-                            Margin="82,5,0,0"
-                            Text="Строка" />
+                            Margin="88,5,0,0"
+                            Text="Row" />
                         <TextBlock
+                            Grid.Row="0" 
+                            Grid.Column="0" 
                             FontSize="14"
-                            Margin="39,0,0,0"
-                            Text="Столбец"
+                            Margin="42,0,0,0"
+                            Text="Column"
                             VerticalAlignment="Bottom" />
 
                         <Button
@@ -153,7 +152,9 @@
                                 MaxWidth="600"
                                 VerticalAlignment="Top">
 
-                                <TextBlock Text="Исходная матрица:" />
+                                <TextBlock 
+                                    Text="Original matrix:" 
+                                    Margin="10, 0, 0, 0"/>
                                 <DataGrid
                                     Background="White"
                                     ColumnWidth="*"
@@ -168,7 +169,7 @@
                                 <Button
                                     Click="ButtonBase_OnClick"
                                     Command="{Binding GetBasePlanCommand}"
-                                    Content="Решить"
+                                    Content="Solve"
                                     Height="60"
                                     Margin="40"
                                     Width="100">
@@ -182,7 +183,7 @@
                                 <TextBlock
                                     Margin="0,30,0,0"
                                     Name="Optimize"
-                                    Text="Оптимальный план:"
+                                    Text="Optimal plan:"
                                     Visibility="Hidden" />
                                 <DataGrid
                                     Background="White"
@@ -200,7 +201,7 @@
 
                                 <TextBlock
                                     Name="BasePlan"
-                                    Text="Опорный план:"
+                                    Text="supporting plan:"
                                     Visibility="Hidden" />
                                 <DataGrid
                                     Background="White"
@@ -218,24 +219,19 @@
                     </Grid>
                 </TabItem>
                 <TabItem
-                    Header="Справка"
+                    Header="Help"
                     Height="20"
                     Width="70">
-                    <TabItem.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="5" />
-                        </Style>
-                    </TabItem.Resources>
                     <StackPanel>
                         <TextBlock
                             FontSize="20"
                             HorizontalAlignment="Center"
-                            Text="Справка" />
+                            Text="Help" />
                         <TextBlock FontSize="18" Margin="10,0,0,0">
-                            Все данные вводятся в исходную матрицу.<LineBreak />
-                            Запасы поставщиков вводятся в крайний правый столбец, потребности потребителей - в крайнюю нижнюю строку.<LineBreak />
-                            Чтобы добавить или убрать столбец необходимо нажать соответсвующие кнопки в левой части экрана.<LineBreak />
-                            После ввода всех значений в исходную матрицу жмём кнопку решить, и на экране появится решение!</TextBlock>
+                            All data is entered into the original matrix.<LineBreak />
+                            Suppliers' inventories are entered in the rightmost column, consumer needs are entered in the bottommost row.<LineBreak />
+                            To add or remove a column, you need to click the corresponding buttons on the left side of the screen.<LineBreak />
+                            After entering all the values into the initial matrix, click the Solve button, and the solution will appear on the screen!</TextBlock>
                     </StackPanel>
                 </TabItem>
             </TabControl>

@@ -2,7 +2,6 @@ using System;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using TransportationTheory.Models.TransportTaskSolver.Implementations;
 using TransportationTheory.Services;
 using TransportationTheory.Infrastructure;
 using TransportationTheory.Models.TransportationTheory;
@@ -14,9 +13,7 @@ namespace TransportationTheory.ViewModels;
 public sealed partial class MainViewModel : ObservableObject
 {
     private readonly ITransportationTheorySolver _transportTaskSolver;
-
-    private readonly TransportationTheoryFactory _transportationTheoryFactory;
-
+    
     private readonly ChangeMatrix _changeMatrix;
 
     [ObservableProperty] 
@@ -34,10 +31,8 @@ public sealed partial class MainViewModel : ObservableObject
     [ObservableProperty] 
     private string _minCostOptimizeMatrix;
 
-    public MainViewModel(TransportationTheoryFactory matrixFactory, ITransportationTheorySolver transportationTheorySolver)
+    public MainViewModel(ITransportationTheorySolver transportationTheorySolver)
     {
-        _transportationTheoryFactory = matrixFactory ?? throw new ArgumentNullException(nameof(matrixFactory));
-        
         _transportTaskSolver = transportationTheorySolver ?? throw new ArgumentNullException(nameof(transportationTheorySolver));
 
         _changeMatrix = new ChangeMatrix();
@@ -78,22 +73,22 @@ public sealed partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void GetBasePlan()
     {
-        var inputMatrix = _transportationTheoryFactory.CreateInputMatrix(Matrix);
+        var inputMatrix = TransportationTheoryFactory.CreateInputMatrix(Matrix);
 
-        var forBasicMatrix = _changeMatrix.ForBasicMatrix(new BasicTransportationTheorySolver().Calculate(inputMatrix), inputMatrix.TariffMatrix);
+        var forBasicMatrix = ChangeMatrix.ForBasicMatrix(new BasicTransportationTheorySolver().Calculate(inputMatrix), inputMatrix.TariffMatrix);
 
         BasicMatrix = _changeMatrix.RemoveUnnecessaryCells(forBasicMatrix.Item1);
 
         MinCostBasicMatrix = ChangeTextForOutput(forBasicMatrix.Item2);
 
-        var forOptimizeMatrix = _changeMatrix.ForOptimizeMatrix(_transportTaskSolver.Calculate(inputMatrix), inputMatrix.TariffMatrix);
+        var forOptimizeMatrix = ChangeMatrix.ForOptimizeMatrix(_transportTaskSolver.Calculate(inputMatrix), inputMatrix.TariffMatrix);
 
         OptimizeMatrix = _changeMatrix.RemoveUnnecessaryCells(forOptimizeMatrix.Item1);
 
         MinCostOptimizeMatrix = ChangeTextForOutput(forOptimizeMatrix.Item2);
     }
 
-    private string ChangeTextForOutput(float inputText)
+    private static string ChangeTextForOutput(float inputText)
     {
         return $"Стоимость перевозок = {inputText}";
     }

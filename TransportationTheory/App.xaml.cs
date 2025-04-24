@@ -1,8 +1,5 @@
 ﻿using System.Windows;
-using TransportationTheory.Models.TransportationTheory;
 using TransportationTheory.Models.TransportationTheorySolver.Implementations;
-using TransportationTheory.Models.TransportTaskSolver.Implementations;
-using TransportationTheory.Models.TransportTaskSolver.Implementations.Decorators;
 
 namespace TransportationTheory
 {
@@ -17,9 +14,7 @@ namespace TransportationTheory
             
             var optimizedTransportTaskSolver = new TransportationTheorySolverWithOptimizations(basicTransportTaskSolver);
 
-            var inputMatrixFactory = new TransportationTheoryFactory();
-
-            var viewModel = new ViewModels.MainViewModel(inputMatrixFactory, optimizedTransportTaskSolver);
+            var viewModel = new ViewModels.MainViewModel(optimizedTransportTaskSolver);
 
             var view = new Views.MainWindow()
             {

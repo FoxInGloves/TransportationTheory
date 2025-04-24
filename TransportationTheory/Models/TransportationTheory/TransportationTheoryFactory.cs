@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace TransportationTheory.Models.TransportationTheory;
 
-public sealed class TransportationTheoryFactory
+public static class TransportationTheoryFactory
 {
-    public Models.TransportationTheory.TransportationTheory CreateInputMatrix(float[,] matrix)
+    public static TransportationTheory CreateInputMatrix(float[,] matrix)
     {
         float[,] tariffMatrix = CreateBaseTariffMatrix(matrix);
 
@@ -15,24 +15,24 @@ public sealed class TransportationTheoryFactory
 
         var difference = suppliesMatrix.Sum() - consumersMatrix.Sum();
 
-        if (difference > 0)
+        switch (difference)
         {
-            ModifyArray(ref consumersMatrix, difference);
+            case > 0:
+                ModifyArray(ref consumersMatrix, difference);
 
-            tariffMatrix = CreateTariffMatrixConsumers(matrix);
+                tariffMatrix = CreateTariffMatrixConsumers(matrix);
+                break;
+            case < 0:
+                ModifyArray(ref suppliesMatrix, (uint)difference);
+
+                tariffMatrix = CreateTariffMatrixSupplies(matrix);
+                break;
         }
-        else
-        if (difference < 0)
-        {
-            ModifyArray(ref suppliesMatrix, (uint)difference);
 
-            tariffMatrix = CreateTariffMatrixSupplies(matrix);
-        }
-
-        return new Models.TransportationTheory.TransportationTheory(tariffMatrix, consumersMatrix, suppliesMatrix);
+        return new TransportationTheory(tariffMatrix, consumersMatrix, suppliesMatrix);
     }
 
-    private float[,] CreateTariffMatrixConsumers(float[,] matrix)
+    private static float[,] CreateTariffMatrixConsumers(float[,] matrix)
     {
         var tariffMatrix = new float[matrix.GetLength(0) - 1, matrix.GetLength(1)];
 
@@ -50,7 +50,7 @@ public sealed class TransportationTheoryFactory
         return tariffMatrix;
     }
 
-    private float[,] CreateTariffMatrixSupplies(float[,] matrix)
+    private static float[,] CreateTariffMatrixSupplies(float[,] matrix)
     {
         var tariffMatrix = new float[matrix.GetLength(0), matrix.GetLength(1) - 1];
         
@@ -68,7 +68,7 @@ public sealed class TransportationTheoryFactory
         return tariffMatrix;
     }
 
-    private float[,] CreateBaseTariffMatrix(float[,] matrix)
+    private static float[,] CreateBaseTariffMatrix(float[,] matrix)
     {
         var tariffMatrix = new float[matrix.GetLength(0) - 1, matrix.GetLength(1) - 1];
         
@@ -83,7 +83,7 @@ public sealed class TransportationTheoryFactory
         return tariffMatrix;
     }
 
-    private float[] CreateConsumersMatrix(float[,] matrix)
+    private static float[] CreateConsumersMatrix(float[,] matrix)
     {
         var consumersMatrix = new float[matrix.GetLength(1) - 1];
 
@@ -95,7 +95,7 @@ public sealed class TransportationTheoryFactory
         return consumersMatrix;
     }
 
-    private float[] CreateSuppliesMatrix(float[,] matrix)
+    private static float[] CreateSuppliesMatrix(float[,] matrix)
     {
         var suppliesMatrix = new float[matrix.GetLength(0) - 1];
 
@@ -107,7 +107,7 @@ public sealed class TransportationTheoryFactory
         return suppliesMatrix;
     }
 
-    private void ModifyArray(ref float[] array, float change)
+    private static void ModifyArray(ref float[] array, float change)
     {
         Array.Resize(ref array, array.Length + 1);
 

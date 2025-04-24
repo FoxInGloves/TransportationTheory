@@ -9,7 +9,6 @@ public static class MatrixExtensions
         var newArray = new T[x, y];
 
         var minRows = Math.Min(x, original.GetLength(0));
-
         var minCols = Math.Min(y, original.GetLength(1));
 
         for (var i = 0; i < minRows; i++)

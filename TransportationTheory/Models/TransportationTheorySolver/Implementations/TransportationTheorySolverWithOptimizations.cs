@@ -1,8 +1,7 @@
-using System.Threading;
 using TransportationTheory.Models.TransportationTheorySolver.Abstractions;
 using TransportationTheory.Models.TransportationTheorySolver.Implementations.Decorators;
 
-namespace TransportationTheory.Models.TransportTaskSolver.Implementations.Decorators;
+namespace TransportationTheory.Models.TransportationTheorySolver.Implementations;
 
 public sealed class TransportationTheorySolverWithOptimizations : BaseTransportationTheorySolverDecorator
 {
